@@ -69,6 +69,37 @@ const usuariosService = {
 
   async deleteAdmin(id) {
     return await administradoresRepository.delete(id);
+  },
+
+    /**
+   * Crear un nuevo usuario con rol INQUILINO (usado por el Administrador)
+   */
+  async createInquilinoUsuario(data) {
+    const rolInquilino = await rolesRepository.findByName('INQUILINO');
+    if (!rolInquilino) {
+      throw new Error('Rol INQUILINO no encontrado');
+    }
+
+    const existe = await usuariosRepository.findByEmail(data.email);
+    if (existe) {
+      throw new Error('El email ya está registrado');
+    }
+
+    const passwordHash = await hashPassword(data.password);
+
+    const nuevoUsuario = await usuariosRepository.createAdmin({  // reutilizamos createAdmin pero con rol INQUILINO
+      rolId: rolInquilino.id,
+      nombres: data.nombres,
+      apellidos: data.apellidos,
+      email: data.email,
+      passwordHash,
+      dni: data.dni,
+      telefono: data.telefono,
+      direccion: data.direccion,
+      tipoDocumento: data.tipoDocumento || 'DNI'
+    });
+
+    return nuevoUsuario;
   }
 };
 

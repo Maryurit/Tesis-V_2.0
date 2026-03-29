@@ -119,6 +119,19 @@ const edificiosController = {
       return error(res, err.message, 400);
     }
   },
+
+    /**
+   * Ver historial de actividades de un edificio
+   */
+  async historialActividades(req, res) {
+    try {
+      const { id } = req.params;
+      const historial = await edificiosService.verHistorialActividades(id, req.user.id);
+      return success(res, historial, 'Historial de actividades obtenido');
+    } catch (err) {
+      return error(res, err.message, 400);
+    }
+  }
 };
 
 module.exports = edificiosController;

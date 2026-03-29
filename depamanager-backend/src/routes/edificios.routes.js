@@ -1,7 +1,7 @@
 const express = require('express');
 const edificiosController = require('../controllers/edificios.controller');
 const authMiddleware = require('../middlewares/auth.middleware');
-const roleGuard = require('../middlewares/roles.middleware');
+const { roleGuard } = require('../middlewares/roles.middleware');   // ← Cambia a destructuring
 
 const router = express.Router();
 
@@ -16,5 +16,6 @@ router.get('/alertas', edificiosController.alertasGlobales);
 router.post('/upgrade-plan', edificiosController.upgradePlan);   
 router.put('/:id', edificiosController.update);
 router.delete('/:id', edificiosController.delete);    
+router.get('/:id/historial', edificiosController.historialActividades);
 
 module.exports = router;

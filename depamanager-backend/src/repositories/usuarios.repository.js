@@ -41,10 +41,13 @@ const usuariosRepository = {
   /**
    * Busca usuario por ID
    */
-  async findById(id) {
+   async findById(id) {
     return await prisma.usuario.findUnique({
       where: { id },
-      include: { rol: true }
+      include: { 
+        rol: true,
+        administrador: true   // ← Agregado para cargar el edificio
+      }
     });
   },
 

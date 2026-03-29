@@ -2,8 +2,8 @@ const { verificarToken } = require('../utils/jwt');
 const usuariosRepository = require('../repositories/usuarios.repository');
 
 /**
- * Middleware de autenticación JWT
- * Verifica el token y carga el usuario en req.user
+ * Middleware de autenticación JWT mejorado
+ * Carga el usuario + edificio si es administrador
  */
 const authMiddleware = async (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -27,6 +27,11 @@ const authMiddleware = async (req, res, next) => {
       email: usuario.email,
       rol: usuario.rol.nombre
     };
+
+    // Si es administrador, cargamos su edificio
+    if (usuario.rol.nombre === 'ADMINISTRADOR' && usuario.administrador) {
+      req.user.edificioId = usuario.administrador.edificioId;
+    }
 
     next();
   } catch (err) {

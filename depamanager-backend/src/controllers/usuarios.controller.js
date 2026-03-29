@@ -70,6 +70,50 @@ const usuariosController = {
     } catch (err) {
       return error(res, err.message, 400);
     }
+  },
+
+    /**
+   * Crear usuario con rol INQUILINO (desde Administrador)
+   */
+  async createInquilinoUsuario(req, res) {
+    try {
+      const usuario = await usuariosService.createInquilinoUsuario(req.body);
+      return success(res, usuario, 'Usuario Inquilino creado correctamente');
+    } catch (err) {
+      return error(res, err.message, 400);
+    }
+  },
+
+    /**
+   * Listar usuarios con rol INQUILINO (solo Administrador)
+   * Útil para obtener el usuarioId antes de crear el inquilino
+   */
+  async listarUsuariosInquilinos(req, res) {
+    try {
+      const prisma = require('../config/database');
+      
+      const usuariosInquilinos = await prisma.usuario.findMany({
+        where: {
+          rol: {
+            nombre: 'INQUILINO'
+          }
+        },
+        select: {
+          id: true,
+          nombres: true,
+          apellidos: true,
+          email: true,
+          dni: true,
+          telefono: true,
+          fechaCreacion: true
+        },
+        orderBy: { fechaCreacion: 'desc' }
+      });
+
+      return success(res, usuariosInquilinos, 'Usuarios Inquilinos listados correctamente');
+    } catch (err) {
+      return error(res, err.message);
+    }
   }
 };
 

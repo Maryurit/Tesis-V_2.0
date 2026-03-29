@@ -1,6 +1,7 @@
 const edificiosRepository = require('../repositories/edificios.repository');
 const administradoresRepository = require('../repositories/administradores.repository');
 const usuariosRepository = require('../repositories/usuarios.repository');
+const auditoriaRepository = require('../repositories/auditoria.repository');   // ← Esta línea faltaba
 const prisma = require('../config/database');   // ← Esta línea faltaba
 
 /**
@@ -115,6 +116,18 @@ const edificiosService = {
 
   async deleteEdificio(id, propietarioId) {
     return await edificiosRepository.delete(id, propietarioId);
+  },
+
+    /**
+   * Ver historial de actividades de un edificio específico
+   */
+  async verHistorialActividades(edificioId, propietarioId) {
+    const edificio = await edificiosRepository.findById(edificioId);
+    if (!edificio || edificio.propietarioId !== propietarioId) {
+      throw new Error('No tienes permiso para ver este edificio');
+    }
+
+    return await auditoriaRepository.findByEdificio(edificioId);
   }
 };
 

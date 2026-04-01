@@ -48,3 +48,10 @@ http://localhost:4000/api/usuarios/inquilinos-usuarios ->Listar inquilinos usuar
 http://localhost:4000/api/inquilinos  ->Con esta ruta se crea el inquilino y se le asigna le cuarto
 
 http://localhost:4000/api/vehiculos
+
+------COMANDOS PARA CORRER LA IA------------------
+
+pip install -r requirements.txt
+
+python detection_service.py
+

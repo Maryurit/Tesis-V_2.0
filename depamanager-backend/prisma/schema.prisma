@@ -238,6 +238,7 @@ model HistorialAcceso {
   vehiculoId     String?
   tipo           TipoAcceso      @default(PLACA)
   resultado      ResultadoAcceso
+  placa          String?
   nivelConfianza Decimal?
   imagenUrl      String?
   fechaEvento    DateTime        @default(now())
@@ -315,14 +316,14 @@ model Notificacion {
 
 model Auditoria {
   id          String   @id @default(uuid())
-  usuarioId   String
+  usuarioId   String?
   edificioId  String?
   accion      String
   descripcion String?
   ipAddress   String?
   fecha       DateTime @default(now())
 
-  usuario  Usuario  @relation(fields: [usuarioId], references: [id])
+  usuario  Usuario?  @relation(fields: [usuarioId], references: [id])
   edificio Edificio? @relation(fields: [edificioId], references: [id])
 
   @@map("auditoria")

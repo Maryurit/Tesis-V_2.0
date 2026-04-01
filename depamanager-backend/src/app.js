@@ -10,6 +10,8 @@ const usuariosRoutes = require('./routes/usuarios.routes');
 const unidadesRoutes = require('./routes/unidades.routes');   // ← Nueva ruta
 const inquilinosRoutes = require('./routes/inquilinos.routes');
 const vehiculosRoutes = require('./routes/vehiculos.routes');
+const camarasRoutes = require('./routes/camaras.routes');
+const accesosRoutes = require('./routes/accesos.routes');
 
 const app = express();
 
@@ -27,6 +29,8 @@ app.use('/api/usuarios', usuariosRoutes);
 app.use('/api/unidades', unidadesRoutes);   // ← Nueva
 app.use('/api/inquilinos', inquilinosRoutes);
 app.use('/api/vehiculos', vehiculosRoutes);
+app.use('/api/camaras', camarasRoutes);
+app.use('/api/accesos', accesosRoutes);
 
 // Health check
 app.get('/health', (req, res) => {

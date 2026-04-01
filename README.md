@@ -55,3 +55,11 @@ pip install -r requirements.txt
 
 python detection_service.py
 
+------COMANDOS PARA CORRER EL PROYECTO-------------
+
+npm install
+
+npx prisma generate
+
+npm run dev
+

@@ -29,16 +29,6 @@ const usuariosRepository = {
   },
 
   /**
-   * Busca usuario por email (incluye el rol)
-   */
-  async findByEmail(email) {
-    return await prisma.usuario.findUnique({
-      where: { email },
-      include: { rol: true }
-    });
-  },
-
-  /**
    * Busca usuario por ID
    */
    async findById(id) {
@@ -82,7 +72,34 @@ const usuariosRepository = {
       where: { email },
       include: { rol: true }
     });
-  }
+  },
+
+  /**
+   * Actualizar Admin
+   */
+  async update(id, data) {
+  return await prisma.usuario.update({
+    where: { id }, 
+    data: {
+      nombres: data.nombres,
+      apellidos: data.apellidos,
+      email: data.email,
+      dni: data.dni,
+      telefono: data.telefono,
+      direccion: data.direccion,
+      activo: data.activo
+    }
+  });
+},
+
+  /**
+   * Eliminar Admin
+   */
+  async delete(id) {
+    return await prisma.usuario.delete({
+      where: { id },
+    });
+  },
 };
 
 module.exports = usuariosRepository;

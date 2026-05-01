@@ -17,6 +17,10 @@ router.use('/admin', (req, res, next) => {
 router.post('/admin', usuariosController.createAdminValidation, usuariosController.createAdmin);
 router.get('/admin', usuariosController.listarAdministradores);
 
+//Actualizar y eliminar adminsitradores
+router.put('/admin/:id', usuariosController.updateAdmin);
+router.delete('/admin/:id', usuariosController.deleteAdmin);
+
 // ==================== RUTAS DEL ADMINISTRADOR ====================
 
 // Listar usuarios inquilinos (solo Administrador)

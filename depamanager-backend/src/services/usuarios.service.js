@@ -63,12 +63,12 @@ const usuariosService = {
     });
   },
 
-    async updateAdmin(id, data) {
-    return await administradoresRepository.update(id, data);
+  async updateAdmin(id, data) {
+    return await usuariosRepository.update(id, data);
   },
 
   async deleteAdmin(id) {
-    return await administradoresRepository.delete(id);
+    return await usuariosRepository.delete(id);
   },
 
     /**
